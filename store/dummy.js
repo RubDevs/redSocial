@@ -16,12 +16,16 @@ async function get(table, id){
     return collection.filter(item => item.id == id)[0] || null;
 }
 
-function upsert(table, data){
+async function upsert(table, data){
+    console.log(data)
     db[table].push(data)
+    return data.id
 }
 
-function remove(table, id){
-    return true
+async function remove(table, id){
+    let collection = await list(table)
+    db.user.pop(id)
+    return id
 }
 
 module.exports = {
