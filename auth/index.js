@@ -27,7 +27,7 @@ function getToken(auth) {
     }
 
     if (auth.indexOf('Bearer ') ===  -1){
-        throw new Error('Formato invalido')
+        throw error('Formato invalido',401)
     }
     let token = auth.replace('Bearer ','')
 

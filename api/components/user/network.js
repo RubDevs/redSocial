@@ -19,8 +19,8 @@ function list(req, res){
         .then((list) => {
             response.success(req,res,list,200)
         })
-        .catch((error) => {
-            response.error(req,res,error.message,500)
+        .catch(err => {
+            console.error(err)
         })
 }
 
@@ -29,9 +29,7 @@ function get(req, res){
         .then((user) => {
             response.success(req,res,user,200)
         })
-        .catch((error) => {
-            response.error(req,res,error.message,500)
-        })
+        .catch(next)
 }
 
 function upsert(req, res){
@@ -39,9 +37,7 @@ function upsert(req, res){
         .then((user) => {
             response.success(req,res,user,200)
         })
-        .catch((error) => {
-            response.error(req,res,error.message,500)
-        })
+        .catch(next)
 }
 
 function remove(req,res) {
@@ -49,9 +45,7 @@ function remove(req,res) {
         .then((user) => {
             response.success(req,res,`Usuario ${user} eliminado`, 200)
         })
-        .catch((error) => {
-            response.error(req,res,error.message,404)
-        })
+        .catch(next)
 }
 
 module.exports = router
