@@ -1,12 +1,15 @@
 const express = require('express');
 
 const router = express.Router();
+const secure = require('./secure')
 const response = require('../../../network/response')
 const Controller = require('./index')
+
 
 router.get('/',list)
 router.get('/:id',get)
 router.post('/',upsert)
+router.put('/', secure('update'), upsert)
 router.delete('/:id', remove)
 
 //Internal functions
@@ -32,7 +35,6 @@ function get(req, res){
 }
 
 function upsert(req, res){
-    console.log(req.body)
     Controller.upsert(req.body)
         .then((user) => {
             response.success(req,res,user,200)
