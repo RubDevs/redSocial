@@ -40,6 +40,13 @@ module.exports = function(injectedStore) {
         return store.upsert(TABLA,user)
     }
 
+    function follow(from,to) {
+        return store.upsert(TABLA + '_follow', {
+            user_from: from,
+            user_to: to
+        })
+    }
+
     function remove(id) {
         return store.remove(TABLA,id)
     }
@@ -48,6 +55,7 @@ module.exports = function(injectedStore) {
         list,
         get,
         upsert,
-        remove
+        remove,
+        follow
     }
 }
