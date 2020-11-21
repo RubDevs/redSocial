@@ -14,7 +14,6 @@ function verify(token) {
 const check = {
     own: function(req,owner){
        const decoded = decodeHeader(req)
-       console.log(decoded)
        if (decoded.id !== owner){
            throw error('No puedes realizar esta accion',401)
        }
@@ -41,7 +40,6 @@ function decodeHeader(req) {
     const authorization = req.headers.authorization || ''
     const token = getToken(authorization)
     const decoded = verify(token)
-
     req.user = decoded;
     return decoded
 }

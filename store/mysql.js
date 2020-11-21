@@ -81,9 +81,15 @@ function update(table, data){
     })
 }
 
-function query(table, query){
+function query(table, query, join){
+    let joinQuery = ''
+    if(join){
+        const key = Object.keys(join)[0]
+        const val = join[key]
+        joinQuery = `JOIN ${key} ON ${table}.${val} = ${key}.id`
+    }
     return new Promise((resolve,reject) => {
-        connection.query(`SELECT * FROM ${table} WHERE ?`, query, (error,result) => {
+        connection.query(`SELECT * FROM ${table} ${joinQuery} WHERE ${table}.?`, query, (error,result) => {
             if(error){
                 return reject(error)
             }
@@ -93,8 +99,10 @@ function query(table, query){
 }
 
 function upsert(table,data) {
+    let user = {...data}
+    console.log(user)
     if(data && data.id){
-        return update(table,data)
+        return insert(table,data)
     } else{
         return insert(table,data)
     }

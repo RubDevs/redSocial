@@ -47,6 +47,13 @@ module.exports = function(injectedStore) {
         })
     }
 
+    async function following(user) {
+        const join = {}
+        join[TABLA] = 'user_from'
+        const query = { user_from: user }
+        return await store.query(TABLA + '_follow', query, join )
+    }
+
     function remove(id) {
         return store.remove(TABLA,id)
     }
@@ -56,6 +63,7 @@ module.exports = function(injectedStore) {
         get,
         upsert,
         remove,
-        follow
+        follow,
+        following
     }
 }
