@@ -10,8 +10,23 @@ module.exports = function(injectedStore) {
         return store.list(TABLA)
     }
 
+    function get(id) {
+        return store.get(TABLA,id)
+    }
+
+    function edit(data) {
+        
+    }
+
+    function create(data) {
+        
+    }
+
     return {
         list,
+        get,
+        edit,
+        create
     }
 }
 

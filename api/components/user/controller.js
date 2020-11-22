@@ -40,6 +40,46 @@ module.exports = function(injectedStore) {
         return store.upsert(TABLA,user)
     }
 
+    async function insert(data) {
+        const user = {
+            name: data.name,
+            username: data.username
+        }
+
+        if(data.id){
+            user.id = data.id
+        }else{
+            user.id = nanoid.nanoid()
+        }
+
+        if(data.username || data.password){
+            await auth.upsert({
+                id: user.id,
+                username: data.username,
+                password: data.password
+            })
+        }
+
+        return store.insert(TABLA,user)
+    }
+
+    async function update(data) {
+        const user = {
+            name: data.name,
+            username: data.username 
+        }
+
+        if(data.username || data.password){
+            await auth.upsert({
+                id: user.id,
+                username: data.username,
+                password: data.password
+            })
+        }
+
+        return store.update(TABLA, user)
+    }
+
     function follow(from,to) {
         return store.upsert(TABLA + '_follow', {
             user_from: from,
@@ -64,6 +104,8 @@ module.exports = function(injectedStore) {
         upsert,
         remove,
         follow,
-        following
+        following,
+        insert,
+        update
     }
 }

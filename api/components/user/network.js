@@ -3,15 +3,16 @@ const express = require('express');
 const router = express.Router();
 const secure = require('./secure')
 const response = require('../../../network/response')
-const Controller = require('./index')
+const Controller = require('./index');
+const user = require('./index');
 
 
 router.get('/',list)
 router.post('/follow/:id',secure('follow'),follow)
 router.get('/:id/following', following)
 router.get('/:id',get)
-router.post('/',upsert)
-router.put('/', secure('update'), upsert)
+router.post('/',insert)
+router.put('/', secure('update'), update)
 router.delete('/:id', remove)
 
 //Internal functions
@@ -39,6 +40,22 @@ function upsert(req, res, next){
             response.success(req,res,user,200)
         })
         .catch(next)
+}
+
+function insert(req,res,next) {
+    Controller.insert(req.body)
+        .then((user)=>{
+            response.success(req,res,user,200)
+        })
+        .catch(next)
+}
+
+function update(req,res,next) {
+    Controller.update(req.body)
+    .then((user) => {
+        response.success(req,res,user,200)
+    })
+    .cath(next)
 }
 
 function follow(req,res,next){

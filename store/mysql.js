@@ -60,8 +60,12 @@ function get(table, id){
 }
 
 function insert(table, data){
+    let user = {
+        ...data
+    }
+    console.log(`Rubs ${user}`)
     return new Promise((resolve,reject) =>{
-        connection.query(`INSERT INTO ${table} SET ?`, data ,(error,result) => {
+        connection.query(`INSERT INTO ${table} SET ?`, user ,(error,result) => {
             if(error){
                 return reject(error)
             }
@@ -100,7 +104,6 @@ function query(table, query, join){
 
 function upsert(table,data) {
     let user = {...data}
-    console.log(user)
     if(data && data.id){
         return insert(table,data)
     } else{
@@ -113,5 +116,7 @@ module.exports = {
     list,
     get,
     upsert,
-    query
+    query,
+    insert,
+    update,
 }
