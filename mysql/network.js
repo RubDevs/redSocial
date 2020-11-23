@@ -5,9 +5,9 @@ const response = require('../network/response');
 const Store = require('../store/mysql')
 
 router.get('/:table',list)
-router.get('/table/:id',get)
-router.post('/table',insert)
-router.put('/:table',update)
+router.get('/:table/:id',get)
+router.post('/:table',insert)
+router.put('/:table/:id',update)
 
 async function list(req,res,next) {
     const data = await Store.list(req.params.table)
